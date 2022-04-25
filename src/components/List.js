@@ -30,7 +30,7 @@ const List = () => {
     const docRef = doc(db, 'todos', id);
     await deleteDoc(docRef);
   }
-
+  
   const addNote = async () => {
     const collectionRef = collection(db, 'todos');
     await addDoc(collectionRef, { message });
