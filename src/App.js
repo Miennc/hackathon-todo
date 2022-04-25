@@ -14,16 +14,17 @@ export default function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Signup />} >
+          <Route path="/signup" element={<Signup />} >
         
           </Route>
+  
           <Route path="/edit" element={<Edit />} >
         
           </Route>
           <Route path="/login" element={<Login />} >
         
           </Route>
-          <Route path="/list" element={<List />} >
+          <Route path="/" element={<List />} >
         
           </Route>
 
