@@ -9,7 +9,20 @@ const Login = () => {
     const [password, setPassword] = useState('')
     // const [error, setError] = useState('')
     let navigate = useNavigate();
-    const validate = () => {
+    // const validate = () => {
+    //     if (!email) {
+    //         alert('Email is required')
+    //         return;
+    //     } else if (!/\S+@\S+\.\S+/.test(email)) {
+    //         alert('Email is invalid')
+    //         return;
+    //     } else if (!password) {
+    //         alert('Password is required')
+    //         return;
+    //     }
+    // }
+    const _doLogin = async (evt) => {
+        evt.preventDefault();
         if (!email) {
             alert('Email is required')
             return;
@@ -19,10 +32,7 @@ const Login = () => {
         } else if (!password) {
             alert('Password is required')
             return;
-        }
-    }
-    const _doLogin = async (evt) => {
-        evt.preventDefault();
+        }else{
         try {
             const resp = await signInWithEmailAndPassword(auth, email, password);
             console.log(resp.user);
@@ -33,83 +43,45 @@ const Login = () => {
             alert("Ko đăng nhập đc bạn ei, non")
             console.error(e);
         }
-
+    }
+    }
+    const _goToSignup = () => {
+        navigate('/')
     }
 
     return (
-        <>
-            <div className="container mx-auto">
-                <div className="flex justify-center px-6 my-12">
-                    <div className="w-full xl:w-3/4 lg:w-11/12 flex">
-                        <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
-                            <h3 className="pt-4 text-2xl text-center">Welcome to chat app!</h3>
-                            <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded" >
-                                <div className="mb-4">
-                                    <label className="block mb-2 text-sm font-bold text-gray-700" for="username">
-                                        Email
-                                    </label>
-                                    <input
-                                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                        id="email"
-                                        type="text"
-                                        placeholder="email"
-                                        onChange={(evt) => setEmail(evt.target.value)}
-                                        value={email}
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
-                                        Password
-                                    </label>
-                                    <input
-                                        className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                        id="password"
-                                        type="password"
-                                        placeholder="******************"
-                                        onChange={(evt) => setPassword(evt.target.value)}
-                                        value={password}
-                                    />
-                                    {/* <p className="text-xs italic text-red-500">Please choose a password.</p> */}
-                                </div>
-                                <div className="mb-4">
-                                    <input className="mr-2 leading-tight" type="checkbox" id="checkbox_id" />
-                                    <label className="text-sm" htmlFor="checkbox_id">
-                                        Remember Me
-                                    </label>
-                                </div>
-                                <div className="mb-6 text-center">
-                                    <button
-                                        className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                                        type="button"
-                                        onClick={_doLogin}
-                                    >
-                                        Sign In
-                                    </button>
-                                </div>
-                                <hr className="mb-6 border-t" />
-                                <div className="text-center">
-                                    <a
-                                        className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                        href="./register.html"
-                                    >
-                                        Create an Account!
-                                    </a>
-                                </div>
-                                <div className="text-center">
-                                    <a
-                                        className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                        href="./forgot-password.html"
-                                    >
-                                        Forgot Password?
-                                    </a>
-                                </div>
-                            </form>
+        <div className="container" id="container">
+            <div className="width-fit w-3/4 mx-auto px-3 py-3">
+                <div className="grid grid-cols-1">
+                    <form action="" className="px-auto pt-6  bg-white rounded" onSubmit={formPrevent}>
+                        <div className="">
+                            <h1 className="font-bold text-2xl mb-7">Sign In</h1>
+                            <hr className="border-1 border-solid border-slate-100" />
+                            <label htmlFor="email" className="font-bold">Email</label>
+                            <input type="text" className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none bg-gray-300 focus:outline-none focus:shadow-outline focus:text-black focus:bg-zinc-300" id="email"
+                                onChange={(evt) => setEmail(evt.target.value)} placeholder="Email" value={email} />
+                            <label htmlFor="password" className="font-bold">Password</label>
+                            <input type="password" className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none bg-gray-300 focus:outline-none focus:shadow-outline focus:text-black focus:bg-zinc-300" id="password"
+                                onChange={(evt) => setPassword(evt.target.value)} placeholder="Password" value={password} />
+                            <div className="mt-5">
+                                <button className="w-1/3 mx-auto px-4 py-2 font-bold text-white bg-green-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline hover:translate-x-3"
+                                    onClick={_doLogin}>Sign In</button>
+                            </div>
                         </div>
-                    </div>
+                        <p className="font-bold italic">or</p>
+                    </form>
                 </div>
+                <div className="">
+                <button className="w-1/3 mx-auto px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline hover:translate-x-3"
+                    onClick={_goToSignup}>Sign Up</button>
+                </div>
+                <p className="font-bold italic">if you don't have an account.</p>
             </div>
-        </>
+        </div>
     )
+}
+function formPrevent(e) {
+    e.preventDefault();
 }
 
 export default Login
